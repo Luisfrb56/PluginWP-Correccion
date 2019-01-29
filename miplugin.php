@@ -14,8 +14,8 @@ Author URI: http://luis.tt/
 
 
 
-function errores_shortcode_init(){
-function mal_sonantes ($atts = [],$content=null ) {
+function errores(){
+
 
 global $wpdb;
 
@@ -32,11 +32,10 @@ global $wpdb;
         dbDelta( $sql );
 
 
-}
-add_shortcode('error', 'mal_sonantes');
+
 }
 
-add_filter( 'init', 'errores_shortcode_init' );
+add_filter( 'init', 'errores' );
 
 
 
@@ -45,6 +44,7 @@ function nota_final( $content ) {
 	return $content;
 }
 add_filter( 'the_content', 'nota_final' );
+
 
 function corregir( $text ) {
     global $wpdb;
@@ -60,5 +60,9 @@ function corregir( $text ) {
         array_push($replace,$results2[$i]->correccion);
 	};
 	return str_replace( $search, $replace, $text );
+	
+function mal_sonantes () {
+}
+add_shortcode('error', 'corregir');
 }
 add_filter( 'the_content', 'corregir' );
