@@ -12,7 +12,10 @@ Version: 2.0
 Author URI: http://luis.tt/
 */
 
+/*
+Funcion que se encarga de crear una tabla con una palabra mal escrita o erronea y otra que si lo es respectivamente
 
+*/
 
 function errores(){
 
@@ -38,14 +41,18 @@ global $wpdb;
 add_filter( 'init', 'errores' );
 
 
-
+/*
+Esto es solo una nota final que se pone al final de cada post
+*/
 function nota_final( $content ) {
 	$content .= '<footer">Gracias por leer mi post, confio en que elijas otro que te guste para visitar.</footer>';
 	return $content;
 }
 add_filter( 'the_content', 'nota_final' );
 
-
+/*
+La funcion encargada de recoger la palabra mal escrita en la tabla y sustituirla por la palabra correcta que le corresponda.
+*/
 function corregir( $text ) {
     global $wpdb;
     $table_name = $wpdb->prefix . 'pluginerrores';
@@ -60,7 +67,9 @@ function corregir( $text ) {
         array_push($replace,$results2[$i]->correccion);
 	};
 	return str_replace( $search, $replace, $text );
-	
+/*
+El shortcode correspondiente.
+*/
 function mal_sonantes () {
 }
 add_shortcode('error', 'corregir');
